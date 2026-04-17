@@ -17,6 +17,38 @@ chromosome matches the emotional features of the input music.
 The output is the best-performing chromosome representing the final image.
 """
 
+
+# creating population of size n
+def create_population(n):
+  population = []
+
+# adding n number of chromosomes to population
+  for i in range(n):
+    population.append(build_chromosome))
+  return population
+
+
+def tournament_selection(population, target, k):
+  group = []
+
+# getting k random individuals from population and adding to group, the best out of group will be selected as a parent 
+  for i in range(k):
+    index = random.randint(0, len(population) - 1)
+    group.append(population[index])
+
+  best = group[0]
+
+# selecting the one with highest fitness among k individulas in group, the best will be returned as the selected parent
+  for i in range(1, k):
+    if check_fitness(group[i], target) > check_fitness(best, target):
+      best = group[i]
+
+  return best
+
+
+
+
+
 def ga_main():
   target = {}
 
