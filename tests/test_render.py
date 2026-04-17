@@ -1,14 +1,15 @@
-from chromosome import build_chromosome
-from render import make_fluid_image, save_image, show_image
-
+from src.chromosome import build_chromosome
+from src.render import make_fluid_image, save_image, show_image
 
 test_features = {
-    'energy': 0.85,
-    'valence': 0.80,
-    'density': 0.72
+    'energy': 0.667,
+    'valence': 0.589,
+    'density': 0.344
 }
 
 chromosome = build_chromosome(test_features)
+
+chromosome["palette_id"] = 21
 
 print("Chromosome:")
 for key, value in chromosome.items():
