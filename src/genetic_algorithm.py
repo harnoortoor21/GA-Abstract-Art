@@ -17,82 +17,80 @@ chromosome matches the emotional features of the input music.
 The output is the best-performing chromosome representing the final image.
 """
 
+from src.chromosome import build_chromosome
+import random
+from src.fitness import calculate_fitness
+from src.ga.crossover import crossover
+from src.ga.mutation import mutation
 
-# creating population of size n
+POPULATION_SIZE = 20
+GENERATIONS = 50
+TOURNAMENT_K = 3
+
+
 def create_population(n):
-  population = []
-
-# adding n number of chromosomes to population
-  for i in range(n):
-    population.append(build_chromosome))
-  return population
-
-
-def tournament_selection(population, target, k):
-  group = []
-
-# getting k random individuals from population and adding to group, the best out of group will be selected as a parent 
-  for i in range(k):
-    index = random.randint(0, len(population) - 1)
-    group.append(population[index])
-
-  best = group[0]
-
-# selecting the one with highest fitness among k individulas in group, the best will be returned as the selected parent
-  for i in range(1, k):
-    if check_fitness(group[i], target) > check_fitness(best, target):
-      best = group[i]
-
-  return best
+    """Create initial population of random chromosomes"""
+    population = []
+    for i in range(n):
+        population.append(build_chromosome())
+    return population
 
 
+def tournament_selection(population, target_features, k=TOURNAMENT_K):
+    """
+    Select best individual from random k individuals
+    """
+    group = []
+    for i in range(k):
+        index = random.randint(0, len(population) - 1)
+        group.append(population[index])
+
+    best = max(group, key=lambda ind: calculate_fitness(ind, target_features))
+    return best
 
 
+def find_best(population, target_features):
+    """Find best chromosome in population"""
+    return max(population, key=lambda ind: calculate_fitness(ind, target_features))
 
-def ga_main():
-  target = {}
 
-  population = create_population()
+def ga_main(target_features):
+    """
+    Main genetic algorithm loop
+    """
+    population = create_population(POPULATION_SIZE)
 
-  for generation in range (GENERATIONS):
-       new_population = []
+    best_ever = find_best(population, target_features)
 
-#elitism
-       best = population[0]
-       for i in range(len(population)):
-            if check_fitness(population[i], target) > check_fitness(best, target):
-               best = population[i]
-               new_population.append(best)
+    for generation in range(GENERATIONS):
+        new_population = []
 
-#getting rest of the individuals for next generatiion
-       while(len(new_population)) < POPULATION_SIZE:
-              p1 = tournament_selection(population, target)
-              p2 = tournamentt_selection(population, target)
-              child = crossover(p1, p2)
-              mutate(child)
-              new_population.append(child)
+        # Elitism: keep best individual
+        best = find_best(population, target_features)
+        new_population.append(best)
 
-#randomly replacing individual for diversity
-        if random.random() < 0.1:
-               new_population.append[-1] = chromosome()
+        # Generate rest of population
+        while len(new_population) < POPULATION_SIZE:
+            p1 = tournament_selection(population, target_features, TOURNAMENT_K)
+            p2 = tournament_selection(population, target_features, TOURNAMENT_K)
+            child = crossover(p1, p2)
+            child = mutation(child)
+            new_population.append(child)
 
-#taking the best from new ppulation for refinement
-        new_best = new_population[0]
-        for i in range(len(new_population)):
-             if check_fitness(new_population[i], target) > check_fitness(best, target):
-                 new_best = new_population[i]
+        # Random replacement for diversity (10% chance)
+        if random.random() < 0.1 and len(new_population) > 1:
+            replace_index = random.randint(1, len(new_population) - 1)  # Don't replace elite
+            new_population[replace_index] = build_chromosome()
 
-# refining the best from new population, and keeping it if it has higher fitness
-        refined = es_refine(new_best)
-        if check_fitness(refined, target) > check_fitness(new_best, target):
-              best_index = new_population.index(new_best)   
-               new_population[best_index] = refined
+        # Track best overall
+        new_best = find_best(new_population, target_features)
+        if calculate_fitness(new_best, target_features) > calculate_fitness(best_ever, target_features):
+            best_ever = new_best
+
         population = new_population
 
-# taking the best as output after all generations
-    final_best = population[0]
-    for i in range(len(population)):
-            if check_fitness(population[i], target) > check_fitness(final_best, target):
-               final_best = population[i]
+        # Optional: print progress
+        print(
+            f"Generation {generation + 1}/{GENERATIONS} - Best fitness: {calculate_fitness(best_ever, target_features):.4f}")
 
-    return final_best
+    return best_ever
