@@ -1,15 +1,65 @@
-"""
-fitness.py
 
-This module evaluates how well a generated image matches the emotional
-characteristics of the input music.
+def calculate_fitness(chromosome, target_features):
+    # scale
 
-It assigns a fitness score to each chromosome based on:
-1. Spatial energy: measures visual complexity relative to music energy
-2. Colour-mood alignment: compares image colors to expected emotional tones
+    tgt_energy = target_features["energy"]
 
-The combined fitness score is used by the genetic algorithm to guide
-the evolution process toward better image representations.
+    scale_start =  200 - tgt_energy * 125
+    scale_end =  300 + tgt_energy * 220
 
-Higher fitness scores indicate a better match between music and image.
-"""
+    ideal_s =  (scale_start + scale_end) /2
+
+    dev_s = abs(ideal_s - chromosome["scale"])
+
+    max_error_s = max( abs(ideal_s - scale_start), abs(ideal_s - scale_end) )
+
+    scale_score = max(0,1 - dev_s /max_error_s)
+
+    # pallete
+    if(target_features['valence'] <= 0.5):
+
+        ideal_p = 1 + (target_features['valence'] * 8)
+
+        dev_p = abs(ideal_p - chromosome["pallete_id"])
+
+        max_error_p = max(abs(ideal_p - 1),abs(ideal_p - 5))
+
+        pallette_score = max(0,1 - dev_p / max_error_p)
+
+    else:
+        ideal_p = 6 + (18 * (target_features['valence'] - 0.5))
+
+        dev_p = abs(ideal_p - chromosome["pallete_id"])
+
+        max_error_p = max(abs(ideal_p - 6),abs(ideal_p - 15))
+
+        pallette_score = max(0, 1 - dev_p / max_error_p)
+
+
+    # octave
+    ideal_o = 1 + (target_features['density'] * 5)
+    dev_o = abs(ideal_o - chromosome["octave"])
+    max_error_o = max(abs(ideal_o - 1), abs(ideal_o - 6))
+    octave_score = max(0,1 - dev_o / max_error_o)
+
+    # warp
+
+    warp_start = 20 + target_features['energy'] * 130
+    warp_end =  50 + target_features['energy'] * 130
+
+    ideal_w = (warp_start + warp_end) / 2
+
+    dev_w = abs(ideal_w - chromosome["warp_strength"])
+
+    max_error_s = max(abs(ideal_w - warp_start), abs(ideal_w - warp_end))
+
+    warp_score = max(0,1 - dev_w / max_error_s)
+
+    fitness_score = pallette_score * 0.4 + scale_score * 0.2 + warp_score * 0.2 + octave_score * 0.2
+    return fitness_score
+
+
+
+
+
+
