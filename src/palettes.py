@@ -9,7 +9,7 @@
 #  SAD PALETTES 1-5 (cool, deep, dark)
 # could be used for valence 0.0-0.3
 
-PALETTE_1 = [   # deep bluish violet to a softer bluish purple
+PALETTE_1 = [
     (80, 30, 10),
     (110, 40, 20),
     (140, 50, 35),
@@ -68,7 +68,6 @@ PALETTE_7 = [  # deep teal to seafoam
     (220, 210, 120),
 ]
 
-
 PALETTE_8 = [  # tealish gray
     (60, 70, 40),
     (90, 110, 60),
@@ -76,7 +75,6 @@ PALETTE_8 = [  # tealish gray
     (160, 170, 130),
     (200, 210, 170)
 ]
-
 
 PALETTE_9 = [  # slate blue to periwinkle
     (100, 60, 60),
@@ -86,7 +84,7 @@ PALETTE_9 = [  # slate blue to periwinkle
     (240, 210, 210),
 ]
 
-#too pastel
+#too pastel?
 PALETTE_10 = [  # muted violet to dusty rose
     (90, 40, 70),
     (130, 70, 110),
@@ -95,7 +93,6 @@ PALETTE_10 = [  # muted violet to dusty rose
     (235, 200, 220),
 ]
 
-# does any song even give green vibes?
 """
 PALETTE_10 = [  # forest green to sage
     (40, 70, 20),
@@ -106,7 +103,7 @@ PALETTE_10 = [  # forest green to sage
 ]
 """
 
-#  HAPPY PALETTES 11-15 (warm, bright)
+#  HAPPY PALETTES 11-19 (warm, bright)
 
 PALETTE_11 = [  # coral to peach
     (60, 80, 180),
@@ -132,33 +129,66 @@ PALETTE_13 = [  # amber to warm gold
     (160, 240, 255),
 ]
 
-PALETTE_14 = [  # terracotta to sand
-    (40, 60, 160),
-    (60, 100, 200),
-    (90, 140, 220),
-    (130, 180, 240),
-    (180, 215, 250),
+PALETTE_14 = [ # red to bright orange
+    (0, 0, 255),
+    (0, 40, 255),
+    (0, 80, 255),
+    (0, 120, 255),
+    (0, 180, 255)
 ]
 
-PALETTE_15 = [  # dusty rose to pale pink
-    (100, 80, 180),
-    (130, 110, 210),
-    (160, 150, 230),
-    (200, 190, 245),
-    (225, 215, 255),
+
+PALETTE_15 = [ # hot pink to orange
+    (80, 40, 255),
+    (60, 80, 255),
+    (40, 120, 255),
+    (20, 160, 255),
+    (0, 200, 255)
+]
+
+PALETTE_16 = [ # orange - blue
+   (0, 140, 255),
+    (40, 120, 220),
+    (80, 100, 180),
+    (140, 80, 140),
+    (220, 60, 100)
+]
+
+PALETTE_17 = [ # pink to purple
+    (120, 40, 255),
+    (140, 30, 240),
+    (160, 20, 220),
+    (180, 10, 200),
+    (200, 0, 180)
+]
+
+PALETTE_18 = [ # blue to yellow-green
+    (255, 120, 0),
+    (220, 160, 20),
+    (180, 200, 40),
+    (120, 230, 80),
+    (60, 255, 140)
+]
+
+PALETTE_19 = [ # teal to yellow
+    (180, 140, 60),
+    (190, 160, 80),
+    (205, 180, 110),
+    (220, 200, 140),
+    (235, 220, 180),
 ]
 
 
 # NEON / INTENSE PALETTES 16-21 (for high energy songs, more warp, more distortion, more intense colours)
-PALETTE_16 = [  # neon sky blue to electric cyan
-    (255, 120, 40),
+PALETTE_20 = [  # neon sky blue to cyan
+    (255, 80, 0),
+    (255, 120, 20),
     (255, 160, 60),
-    (255, 200, 90),
-    (255, 235, 140),
-    (255, 255, 200),
+    (255, 200, 100),
+    (255, 240, 160)
 ]
 
-PALETTE_17 = [  # electric lime to slight yellow pop
+PALETTE_21 = [  #lime to slight yellow pop
     (80, 255, 60),
     (120, 255, 80),
     (160, 255, 120),
@@ -166,7 +196,7 @@ PALETTE_17 = [  # electric lime to slight yellow pop
     (240, 255, 210),
 ]
 
-PALETTE_18 = [  # hot pink to magenta
+PALETTE_22 = [  # hot pink to magenta
     (180, 60, 255),
     (200, 90, 255),
     (220, 120, 255),
@@ -174,7 +204,7 @@ PALETTE_18 = [  # hot pink to magenta
     (255, 200, 255),
 ]
 
-PALETTE_19 = [  # bright aqua to cyan
+PALETTE_23 = [  # bright aqua to cyan
     (255, 200, 60),
     (255, 220, 90),
     (255, 240, 120),
@@ -182,7 +212,7 @@ PALETTE_19 = [  # bright aqua to cyan
     (210, 255, 200),
 ]
 
-PALETTE_20 = [  # sunrise pop (orange to yellow to white)
+PALETTE_24 = [  # orange to yellow to white
     (60, 140, 255),
     (90, 180, 255),
     (120, 220, 255),
@@ -190,7 +220,7 @@ PALETTE_20 = [  # sunrise pop (orange to yellow to white)
     (220, 255, 255),
 ]
 
-PALETTE_21 = [  # neon mix (cyan to magenta vibe)
+PALETTE_25 = [  # neon mix (cyan to magenta vibe)
     (255, 80, 200),
     (255, 120, 160),
     (255, 180, 120),
@@ -220,4 +250,8 @@ PALETTES = {
     19: PALETTE_19,
     20: PALETTE_20,
     21: PALETTE_21,
+    22: PALETTE_22,
+    23: PALETTE_23,
+    24: PALETTE_24,
+    25: PALETTE_25
 }

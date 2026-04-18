@@ -29,6 +29,6 @@ def mutation(chromosome):
 
     if np.random.random() < MUTATION_RATE["palette_id"]:
         mutated["palette_id"] += np.random.choice([-2, -1, 1, 2])
-        mutated["palette_id"] = np.clip(mutated["palette_id"], 1, 21)
+        mutated["palette_id"] = np.clip(mutated["palette_id"], 1, 25)
 
     return mutated

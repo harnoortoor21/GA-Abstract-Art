@@ -16,9 +16,9 @@ def pick_palette(valence, energy):
 
     else:
         if energy < 0.7: #need to test smt like edm music and see what is scores for valence
-            start, end = 11, 15 # happy but not intense
+            start, end = 11, 19 # happy but not intense
         else:
-            start, end = 16, 21 # neon / intense
+            start, end = 16, 25 # neon / intense
 
     return np.random.randint(start, end + 1)
 
